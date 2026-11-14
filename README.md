@@ -30,3 +30,6 @@ dialogue captions. This is currently an **animated animatic foundation**, not a 
 final feature render remain production work.
 
 The target is Blender 2.79b to match the older macOS computer.
+
+
+Latest compatibility fix: the scene builder now uses Blender 2.79's `World.horizon_color` property.
