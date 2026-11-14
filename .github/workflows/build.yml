@@ -1,0 +1,40 @@
+name: Build Blender movie project
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+jobs:
+  build-blend:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 30
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install Blender runtime dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y curl bzip2 libxi6 libxrender1 libxfixes3 libxkbcommon0 libsm6 libice6 libx11-6 libxext6 libgl1 libglu1-mesa
+
+      - name: Download Blender 2.79b
+        run: |
+          curl -L --fail --retry 3 \
+            https://download.blender.org/release/Blender2.79/blender-2.79b-linux-glibc219-x86_64.tar.bz2 \
+            -o /tmp/blender279.tar.bz2
+          tar -xjf /tmp/blender279.tar.bz2 -C /tmp
+
+      - name: Build editable .blend project
+        env:
+          BLEND_OUTPUT: dist/The_Toilet_That_Wanted_Revenge.blend
+        run: |
+          /tmp/blender-2.79b-linux-glibc219-x86_64/blender \
+            --background --factory-startup --python build_movie.py
+
+      - name: Upload Blender project
+        uses: actions/upload-artifact@v4
+        with:
+          name: The-Toilet-That-Wanted-Revenge-Blender279
+          path: dist/The_Toilet_That_Wanted_Revenge.blend
+          if-no-files-found: error
