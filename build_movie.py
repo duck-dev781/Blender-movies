@@ -38,7 +38,7 @@ s.frame_start=1; s.frame_end=72000; s.render.fps=24
 s.render.resolution_x=640; s.render.resolution_y=360; s.render.resolution_percentage=50
 s.render.image_settings.file_format="PNG"; s.render.filepath="//frames/"
 s.render.engine="BLENDER_RENDER"
-s.world.color=(.12,.16,.22)
+s.world.horizon_color=(.12,.16,.22)
 
 porcelain=mat("Glossy porcelain",(.92,.96,1.0))
 blue=mat("Bathroom blue",(.08,.32,.72)); tile=mat("Tile",(.55,.75,.86))
